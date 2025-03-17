@@ -11,36 +11,36 @@ import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
 
 function App() {
-  const [currencyCity, setCurrencyCity] = useState({ q: "New York" });
-  const [showLoader, setShowLoader] = useState(true);
+  const [currentCity, setCurrentCity] = useState({ q: "New York" });
+  const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
   const [units, setUnits] = useState("metric");
   const [weather, setWeather] = useState(null);
   const infoToastId = useRef(null);
 
-  const fetchWeather = async (currencyCity, units) => {
-    const message = currencyCity.q ? currencyCity.q : "current location.";
+  const fetchWeather = async (currentCity, units) => {
+    const message = currentCity.q ? currentCity.q : "current location.";
 
     infoToastId.current = toast.info("Fetching weather for " + message, {
       hideProgressBar: true,
     });
 
     const formattedWeatherData = await getFormattedWeatherData({
-      ...currencyCity,
+      ...currentCity,
       units,
     });
     return formattedWeatherData;
   };
 
   useEffect(() => {
-    setShowLoader(true);
+    setIsLoading(true);
     setWeather(null);
     setErrorMessage(null);
-    const weatherData = fetchWeather(currencyCity, units);
+    const weatherData = fetchWeather(currentCity, units);
     weatherData.then((data) => {
       setTimeout(() => {
         toast.dismiss(infoToastId.current);
-        setShowLoader(false);
+        setIsLoading(false);
         if (data.message) {
           setWeather(null);
           setErrorMessage(data.message);
@@ -54,7 +54,7 @@ function App() {
         });
       }, 2000); // adding some delay for the weather to be displayed
     });
-  }, [currencyCity, units]);
+  }, [currentCity, units]);
 
   const formatBackground = () => {
     if (!weather) {
@@ -71,10 +71,10 @@ function App() {
     <div
       className={`max-w-screen-md w-full py-5 px-6 sm:px-10 md:px-16 lg:px-24 bg-gradient-to-br rounded-3xl shadow-xl shadow-gray-400 ${formatBackground()}`}
     >
-      <TopButtons setCurrencyCity={setCurrencyCity} isDisabled={showLoader} />
+      <TopButtons setCurrentCity={setCurrentCity} isDisabled={isLoading} />
       <Inputs
-        isDisabled={showLoader}
-        setCurrencyCity={setCurrencyCity}
+        isDisabled={isLoading}
+        setCurrentCity={setCurrentCity}
         units={units}
         setUnits={setUnits}
         inputSize='sm'
@@ -83,7 +83,7 @@ function App() {
       />
 
       <div className='h-100 md:mt-8 md:h-80'>
-        {showLoader ? (
+        {isLoading ? (
           <div className='flex items-center justify-center md:my-6 xs:my-2'>
             <p className='text-white text-xl font-extralight'>{"Loading..."}</p>
           </div>

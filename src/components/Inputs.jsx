@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { UilSearch, UilLocationPoint } from "@iconscout/react-unicons";
 import { toast } from "react-toastify";
 
-const Inputs = ({ setCurrencyCity, units, setUnits, isDisabled }) => {
+const Inputs = ({ setCurrentCity, units, setUnits, isDisabled }) => {
   const [city, setCity] = useState("");
 
   const handleUnitsChange = (e) => {
@@ -13,7 +13,7 @@ const Inputs = ({ setCurrencyCity, units, setUnits, isDisabled }) => {
 
   const handleSearchClick = () => {
     if (city !== "") {
-      setCurrencyCity({ q: city });
+      setCurrentCity({ q: city });
       setCity("");
     }
   };
@@ -25,7 +25,7 @@ const Inputs = ({ setCurrencyCity, units, setUnits, isDisabled }) => {
         toast.success("Location fetched!");
         let lat = position.coords.latitude;
         let lon = position.coords.longitude;
-        setCurrencyCity({
+        setCurrentCity({
           lat,
           lon,
         });

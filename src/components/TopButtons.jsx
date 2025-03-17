@@ -19,7 +19,7 @@ const cities = [
   },
 ];
 
-const TopButtons = ({ setCurrencyCity, isDisabled }) => {
+const TopButtons = ({ setCurrentCity, isDisabled }) => {
   return (
     <div className='flex items-center justify-between my-6'>
       {cities.map((city) => (
@@ -27,7 +27,7 @@ const TopButtons = ({ setCurrencyCity, isDisabled }) => {
           disabled={isDisabled}
           key={city.id}
           className='text-lg font-medium text-white'
-          onClick={() => setCurrencyCity({ q: city.title })}
+          onClick={() => setCurrentCity({ q: city.title })}
         >
           {city.title}
         </button>
