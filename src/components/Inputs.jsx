@@ -20,9 +20,9 @@ const Inputs = ({ setCurrentCity, units, setUnits, isDisabled }) => {
 
   const handleLocationClick = () => {
     if (navigator.geolocation) {
-      toast.info("Fetching users location.");
+      toast.info("Fetching your location...");
       navigator.geolocation.getCurrentPosition((position) => {
-        toast.success("Location fetched!");
+        toast.success("Location successfully fetched!");
         let lat = position.coords.latitude;
         let lon = position.coords.longitude;
         setCurrentCity({
