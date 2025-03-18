@@ -1,12 +1,12 @@
 import React from "react";
-import { formatToLocalTime } from "../services/weatherService";
+import { getLocalTime } from "../services/weatherService";
 
-const TimeAndLocation = ({ weather: { dt, timezone, name, country } }) => {
+const TimeAndLocation = ({ weather: { timezone, name, country } }) => {
   return (
     <>
       <div className='flex items-center justify-center md:my-6 my-3'>
         <p className='text-white font-extralight xs:text-xs sm:text-sm md:text-xl'>
-          {formatToLocalTime(dt, timezone)}
+          {getLocalTime(timezone)}
         </p>
       </div>
 

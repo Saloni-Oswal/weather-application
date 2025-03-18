@@ -6,7 +6,10 @@ import {
   UilSun,
   UilSunset,
 } from "@iconscout/react-unicons";
-import { formatToLocalTime, iconUrlFromCode } from "../services/weatherService";
+import {
+  getSunriseAndSunsetTimings,
+  iconUrlFromCode,
+} from "../services/weatherService";
 
 const TemperatureAndDetails = ({
   weather: {
@@ -58,7 +61,10 @@ const TemperatureAndDetails = ({
             <p className='font-light ml-1'>
               Rise:
               <span className='font-medium ml-1'>
-                {formatToLocalTime(sunrise, timezone, "hh:mm a")}
+                {getSunriseAndSunsetTimings(sunrise, timezone, {
+                  hour: "numeric",
+                  minute: "numeric",
+                })}
               </span>
             </p>
           </span>
@@ -69,7 +75,10 @@ const TemperatureAndDetails = ({
             <p className='font-light ml-1'>
               Set:
               <span className='font-medium ml-1'>
-                {formatToLocalTime(sunset, timezone, "hh:mm a")}
+                {getSunriseAndSunsetTimings(sunset, timezone, {
+                  hour: "numeric",
+                  minute: "numeric",
+                })}
               </span>
             </p>
           </span>
